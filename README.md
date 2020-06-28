@@ -1,12 +1,13 @@
-# Language: Go
+* Language
+  * Go
+* Developer
+  * Gregorio Patriota
+* Reference Book
+  * Web Developer With Go (Shiju Varghese)
 
-# Developer: Gregorio Patriota
-
-# Reference Book: Web Developer With Go (Shiju Varghese)
-
-To run de main package:
+- To run de main package:
 $> go run main.go
-To install libraries:
+- To install libraries:
 $> go install
-To test:
+- To test:
 $> go test
