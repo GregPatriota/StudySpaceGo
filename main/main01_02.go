@@ -18,7 +18,7 @@ func doPanic() {
 	fmt.Println("This will never be called")
 }
 
-func main() {
+func main02() {
 	_, err := os.Open("readme_log.txt")
 	if err != nil {
 		log.Fatal(err)
