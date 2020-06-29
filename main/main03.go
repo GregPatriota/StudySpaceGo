@@ -32,7 +32,7 @@ func (p *Person) ChangeLocation(newLocation string) {
 	p.Location = newLocation
 }
 
-func main() {
+func main_old_03() {
 	alex := &Person{
 		"Alex",
 		"John",
