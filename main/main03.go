@@ -5,6 +5,11 @@ import (
 	"time"
 )
 
+type User interface {
+	PrintName()
+	PrintDetails()
+}
+
 type Person struct {
 	FirstName, LastName string
 	Dob                 time.Time
@@ -28,14 +33,23 @@ func (p *Person) ChangeLocation(newLocation string) {
 }
 
 func main() {
-	p := &Person{
+	alex := &Person{
+		"Alex",
+		"John",
+		time.Date(1970, time.January, 10, 0, 0, 0, 0, time.UTC),
+		"alex@email.com",
+		"New York",
+	}
+	shiju := &Person{
 		"Shiju",
 		"Varghese",
 		time.Date(1979, time.February, 17, 0, 0, 0, 0, time.UTC),
 		"shiju@email.com",
 		"Kochi",
 	}
-	p.ChangeLocation("Santa Clara")
-	p.PrintName()
-	p.PrintDetails()
+	users := []User{alex, shiju}
+	for _, v := range users {
+		v.PrintName()
+		v.PrintDetails()
+	}
 }
