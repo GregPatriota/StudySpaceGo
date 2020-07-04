@@ -14,16 +14,30 @@ func main() {
 	// Add a count of two, one for each goroutine.
 	wg.Add(2)
 	fmt.Println("Start Goroutines")
+	msg := make(chan string, 2)
 	//launch a goroutine with label "A"
-	go printCounts("A")
+	go printCounts("A", msg)
 	//launch a goroutine with label "B"
-	go printCounts("B")
+	go sendCounts("B", msg)
 	// Wait for the goroutines to finish.
 	fmt.Println("Waiting To Finish")
 	wg.Wait()
 	fmt.Println("\nTerminating Program")
 }
-func printCounts(label string) {
+func printCounts(label string, msg chan string) {
+	// Schedule the call to WaitGroup's Done to tell we are done.
+	defer wg.Done()
+	value := <- msg
+	fmt.Println(value)
+	// Randomly wait
+	for count := 1; count <= 10; count++ {
+		sleep := rand.Int63n(1000)
+		time.Sleep(time.Duration(sleep) * time.Millisecond)
+		fmt.Printf("Count: %d from %s\n", count, label)
+	}
+}
+
+func sendCounts(label string, msg chan string) {
 	// Schedule the call to WaitGroup's Done to tell we are done.
 	defer wg.Done()
 	// Randomly wait
@@ -32,4 +46,10 @@ func printCounts(label string) {
 		time.Sleep(time.Duration(sleep) * time.Millisecond)
 		fmt.Printf("Count: %d from %s\n", count, label)
 	}
+	msg <- "Go!!"
+	sleep := rand.Int63n(10)
+	time.Sleep(time.Duration(sleep) * time.Second)
+	close(msg)
+	fmt.Println("Finished!")
+	
 }
